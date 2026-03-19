@@ -2,6 +2,7 @@
 
 #include <GfxRenderer.h>
 #include <Utf8.h>
+#include <TamilShaper.h>
 
 #include <algorithm>
 #include <cmath>
@@ -56,22 +57,30 @@ void stripSoftHyphensInPlace(std::string& word) {
 // don't inflate inter-word spacing.
 uint16_t measureWordWidth(const GfxRenderer& renderer, const int fontId, const std::string& word,
                           const EpdFontFamily::Style style, const bool appendHyphen = false) {
+
   if (word.size() == 1 && word[0] == ' ' && !appendHyphen) {
     return renderer.getSpaceWidth(fontId, style);
   }
+
   const bool hasSoftHyphen = containsSoftHyphen(word);
-  if (!hasSoftHyphen && !appendHyphen) {
-    return renderer.getTextAdvanceX(fontId, word.c_str(), style);
+
+  // Build the string we'll actually measure (strip soft hyphens, maybe append '-')
+  std::string sanitized;
+  const char* measurePtr = word.c_str();
+
+  if (hasSoftHyphen || appendHyphen) {
+    sanitized = word;
+    if (hasSoftHyphen) stripSoftHyphensInPlace(sanitized);
+    if (appendHyphen)  sanitized.push_back('-');
+    measurePtr = sanitized.c_str();
   }
 
-  std::string sanitized = word;
-  if (hasSoftHyphen) {
-    stripSoftHyphensInPlace(sanitized);
+  if (TamilShaper::containsTamil(measurePtr)) {
+    return static_cast<uint16_t>(
+        renderer.getTextAdvanceXTamil(fontId, measurePtr, style));
   }
-  if (appendHyphen) {
-    sanitized.push_back('-');
-  }
-  return renderer.getTextAdvanceX(fontId, sanitized.c_str(), style);
+
+  return renderer.getTextAdvanceX(fontId, measurePtr, style);
 }
 
 }  // namespace

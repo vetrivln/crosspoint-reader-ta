@@ -11,6 +11,7 @@
 #include <I18n.h>
 #include <Logging.h>
 #include <SPI.h>
+#include <TamilShaper.h>
 #include <builtinFonts/all.h>
 
 #include <cstring>
@@ -124,6 +125,33 @@ EpdFont ui12RegularFont(&ubuntu_12_regular);
 EpdFont ui12BoldFont(&ubuntu_12_bold);
 EpdFontFamily ui12FontFamily(&ui12RegularFont, &ui12BoldFont);
 
+#ifndef OMIT_FONTS
+EpdFont notosanstamil8RegularFont(&notosanstamil_8_regular);
+EpdFont notosanstamil8BoldFont(&notosanstamil_8_bold);
+EpdFontFamily notosanstamil8FontFamily(&notosanstamil8RegularFont, &notosanstamil8BoldFont,
+                                        &notosanstamil8BoldFont, &notosanstamil8BoldFont);
+EpdFont notosanstamil10RegularFont(&notosanstamil_10_regular);
+EpdFont notosanstamil10BoldFont(&notosanstamil_10_bold);
+EpdFontFamily notosanstamil10FontFamily(&notosanstamil10RegularFont, &notosanstamil10BoldFont,
+                                        &notosanstamil10BoldFont, &notosanstamil10BoldFont);
+EpdFont notosanstamil12RegularFont(&notosanstamil_12_regular);
+EpdFont notosanstamil12BoldFont(&notosanstamil_12_bold);
+EpdFontFamily notosanstamil12FontFamily(&notosanstamil12RegularFont, &notosanstamil12BoldFont,
+                                        &notosanstamil12BoldFont, &notosanstamil12BoldFont);
+EpdFont notosanstamil14RegularFont(&notosanstamil_14_regular);
+EpdFont notosanstamil14BoldFont(&notosanstamil_14_bold);
+EpdFontFamily notosanstamil14FontFamily(&notosanstamil14RegularFont, &notosanstamil14BoldFont,
+                                        &notosanstamil14BoldFont, &notosanstamil14BoldFont);
+EpdFont notosanstamil16RegularFont(&notosanstamil_16_regular);
+EpdFont notosanstamil16BoldFont(&notosanstamil_16_bold);
+EpdFontFamily notosanstamil16FontFamily(&notosanstamil16RegularFont, &notosanstamil16BoldFont,
+                                        &notosanstamil16BoldFont, &notosanstamil16BoldFont);
+EpdFont notosanstamil18RegularFont(&notosanstamil_18_regular);
+EpdFont notosanstamil18BoldFont(&notosanstamil_18_bold);
+EpdFontFamily notosanstamil18FontFamily(&notosanstamil18RegularFont, &notosanstamil18BoldFont,
+                                        &notosanstamil18BoldFont, &notosanstamil18BoldFont);
+#endif  // OMIT_FONTS
+
 // measurement of power button press duration calibration value
 unsigned long t1 = 0;
 unsigned long t2 = 0;
@@ -221,6 +249,12 @@ void setupDisplayAndFonts() {
   renderer.insertFont(OPENDYSLEXIC_10_FONT_ID, opendyslexic10FontFamily);
   renderer.insertFont(OPENDYSLEXIC_12_FONT_ID, opendyslexic12FontFamily);
   renderer.insertFont(OPENDYSLEXIC_14_FONT_ID, opendyslexic14FontFamily);
+  renderer.insertFont(NOTOSANSTAMIL_8_FONT_ID, notosanstamil8FontFamily);
+  renderer.insertFont(NOTOSANSTAMIL_10_FONT_ID, notosanstamil10FontFamily);
+  renderer.insertFont(NOTOSANSTAMIL_12_FONT_ID, notosanstamil12FontFamily);
+  renderer.insertFont(NOTOSANSTAMIL_14_FONT_ID, notosanstamil14FontFamily);
+  renderer.insertFont(NOTOSANSTAMIL_16_FONT_ID, notosanstamil16FontFamily);
+  renderer.insertFont(NOTOSANSTAMIL_18_FONT_ID, notosanstamil18FontFamily);
 #endif  // OMIT_FONTS
   renderer.insertFont(UI_10_FONT_ID, ui10FontFamily);
   renderer.insertFont(UI_12_FONT_ID, ui12FontFamily);
@@ -285,6 +319,7 @@ void setup() {
   LOG_DBG("MAIN", "Starting CrossPoint version " CROSSPOINT_VERSION);
 
   setupDisplayAndFonts();
+  LOG_DBG("MAIN", "containsTamil test: %d", (int)TamilShaper::containsTamil("வரலாறு"));
 
   activityManager.goToBoot();
 

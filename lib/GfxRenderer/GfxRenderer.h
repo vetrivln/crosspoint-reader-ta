@@ -55,6 +55,9 @@ class GfxRenderer {
   template <Color color>
   void fillArc(int maxRadius, int cx, int cy, int xDir, int yDir) const;
 
+  void renderCodepoint(int fontId, uint32_t cp, int x, int y, bool black,
+                     EpdFontFamily::Style style) const;
+
  public:
   explicit GfxRenderer(HalDisplay& halDisplay)
       : display(halDisplay), renderMode(BW), orientation(Portrait), fadingFix(false) {}
@@ -125,6 +128,10 @@ class GfxRenderer {
   /// Returns the kerning adjustment between two adjacent codepoints.
   int getKerning(int fontId, uint32_t leftCp, uint32_t rightCp, EpdFontFamily::Style style) const;
   int getTextAdvanceX(int fontId, const char* text, EpdFontFamily::Style style) const;
+  void drawTextTamil(int fontId, int x, int y, const char* text, bool black = true,
+                     EpdFontFamily::Style style = EpdFontFamily::REGULAR) const;
+  int getTextAdvanceXTamil(int fontId, const char* text,
+                            EpdFontFamily::Style style = EpdFontFamily::REGULAR) const;
   int getFontAscenderSize(int fontId) const;
   int getLineHeight(int fontId) const;
   std::string truncatedText(int fontId, const char* text, int maxWidth,

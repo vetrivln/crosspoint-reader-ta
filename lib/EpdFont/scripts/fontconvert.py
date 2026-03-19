@@ -80,6 +80,11 @@ intervals = [
     (0x2200, 0x22FF),
     # Arrows
     (0x2190, 0x21FF),
+
+    ### Tamil ###
+    # Tamil script used for the Tamil language
+    # Letters, vowel signs, virama, digits, punctuation
+    (0x0B80,0x0BFF),
     ### CJK ###
     # Core Unified Ideographs
     # (0x4E00, 0x9FFF),

@@ -1,5 +1,7 @@
 #include "GfxRenderer.h"
 
+#include <TamilShaper.h>
+#include "FontIdResolver_Tamil.h"
 #include <FontDecompressor.h>
 #include <Logging.h>
 #include <Utf8.h>
@@ -222,6 +224,13 @@ void GfxRenderer::drawText(const int fontId, const int x, const int y, const cha
     fontCacheManager_->recordText(text, fontId, style);
     return;
   }
+
+  if (TamilShaper::containsTamil(text)) {
+    const int tamilFontId = TamilFontId::forBodyFont(fontId);
+    drawTextTamil(tamilFontId, x, y, text, black, style);
+    return;
+  }
+
 
   const auto fontIt = fontMap.find(fontId);
   if (fontIt == fontMap.end()) {
@@ -980,6 +989,10 @@ int GfxRenderer::getKerning(const int fontId, const uint32_t leftCp, const uint3
 }
 
 int GfxRenderer::getTextAdvanceX(const int fontId, const char* text, EpdFontFamily::Style style) const {
+    if (TamilShaper::containsTamil(text)) {
+    return getTextAdvanceXTamil(TamilFontId::forBodyFont(fontId), text, style);
+  }
+  
   const auto fontIt = fontMap.find(fontId);
   if (fontIt == fontMap.end()) {
     LOG_ERR("GFX", "Font %d not found", fontId);
@@ -1216,4 +1229,13 @@ void GfxRenderer::getOrientedViewableTRBL(int* outTop, int* outRight, int* outBo
       *outLeft = VIEWABLE_MARGIN_TOP;
       break;
   }
+}
+
+void GfxRenderer::renderCodepoint(const int fontId, const uint32_t cp,
+                                   const int x, const int y, const bool black,
+                                   const EpdFontFamily::Style style) const {
+  const auto fontIt = fontMap.find(fontId);
+  if (fontIt == fontMap.end()) return;
+  renderCharImpl<TextRotation::None>(*this, renderMode, fontIt->second,
+      cp, x, y, black, style);  // ← y is passed as-is, NO ascender added here
 }

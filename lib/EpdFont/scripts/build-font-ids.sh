@@ -135,3 +135,45 @@ ruby -rdigest -e 'puts [
   "./notosans_8_regular.h",
 ].map{|f| Digest::SHA256.hexdigest(File.read(f)).to_i(16) }.sum % (2 ** 32) - (2 ** 31)'
 ))"
+
+echo "#define NOTOSANSTAMIL_8_FONT_ID ($(
+ruby -rdigest -e 'puts [
+  "./notosanstamil_8_regular.h",
+  "./notosanstamil_8_bold.h",
+].map{|f| Digest::SHA256.hexdigest(File.read(f)).to_i(16) }.sum % (2 ** 32) - (2 ** 31)'
+))"
+
+echo "#define NOTOSANSTAMIL_10_FONT_ID ($(
+ruby -rdigest -e 'puts [
+  "./notosanstamil_10_regular.h",
+  "./notosanstamil_10_bold.h",
+].map{|f| Digest::SHA256.hexdigest(File.read(f)).to_i(16) }.sum % (2 ** 32) - (2 ** 31)'
+))"
+
+echo "#define NOTOSANSTAMIL_12_FONT_ID ($(
+ruby -rdigest -e 'puts [
+  "./notosanstamil_12_regular.h",
+  "./notosanstamil_12_bold.h",
+].map{|f| Digest::SHA256.hexdigest(File.read(f)).to_i(16) }.sum % (2 ** 32) - (2 ** 31)'
+))"
+
+echo "#define NOTOSANSTAMIL_14_FONT_ID ($(
+ruby -rdigest -e 'puts [
+  "./notosanstamil_14_regular.h",
+  "./notosanstamil_14_bold.h",
+].map{|f| Digest::SHA256.hexdigest(File.read(f)).to_i(16) }.sum % (2 ** 32) - (2 ** 31)'
+))"
+
+echo "#define NOTOSANSTAMIL_16_FONT_ID ($(
+ruby -rdigest -e 'puts [
+  "./notosanstamil_16_regular.h",
+  "./notosanstamil_16_bold.h",
+].map{|f| Digest::SHA256.hexdigest(File.read(f)).to_i(16) }.sum % (2 ** 32) - (2 ** 31)'
+))"
+
+echo "// #define NOTOSANSTAMIL_18_FONT_ID ($(
+ruby -rdigest -e 'puts [
+  "./notosanstamil_18_regular.h",
+  "./notosanstamil_18_bold.h",
+].map{|f| Digest::SHA256.hexdigest(File.read(f)).to_i(16) }.sum % (2 ** 32) - (2 ** 31)'
+))"

@@ -1,0 +1,16 @@
+{
+  "name": "TamilShaper",
+  "version": "0.0.1",
+  "description": "Tamil script grapheme cluster builder for e-ink rendering. Handles vowel reordering, split vowels, virama clusters, and correct glyph positioning.",
+  "keywords": ["tamil", "text shaping", "unicode", "epaper", "eink"],
+  "authors": [
+    {
+      "name": "vetrivln"
+    }
+  ],
+  "license": "MIT",
+  "frameworks": "arduino",
+  "dependencies": {
+    "Utf8": "*"
+  }
+}

@@ -53,3 +53,15 @@
 #include <builtinFonts/ubuntu_10_regular.h>
 #include <builtinFonts/ubuntu_12_bold.h>
 #include <builtinFonts/ubuntu_12_regular.h>
+#include <builtinFonts/notosanstamil_8_regular.h>
+#include <builtinFonts/notosanstamil_8_bold.h>
+#include <builtinFonts/notosanstamil_10_regular.h>
+#include <builtinFonts/notosanstamil_10_bold.h>
+#include <builtinFonts/notosanstamil_12_regular.h>
+#include <builtinFonts/notosanstamil_12_bold.h>
+#include <builtinFonts/notosanstamil_14_bold.h>
+#include <builtinFonts/notosanstamil_14_regular.h>
+#include <builtinFonts/notosanstamil_16_bold.h>
+#include <builtinFonts/notosanstamil_16_regular.h>
+#include <builtinFonts/notosanstamil_18_bold.h>
+#include <builtinFonts/notosanstamil_18_regular.h>
